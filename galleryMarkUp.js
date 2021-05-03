@@ -4,7 +4,9 @@ const galleryContainer = document.querySelector('.js-gallery');
 const cardsMarkup = createGalleryMarkUp(gallery);
 galleryContainer.insertAdjacentHTML('beforeend', cardsMarkup);
 
+galleryContainer.addEventListener('click', onImageClick)
 
+/*Функция добавления разметки*/
 function createGalleryMarkUp(gallery) {
   return gallery
     .map(({ preview, original, description }) => {
@@ -23,7 +25,14 @@ function createGalleryMarkUp(gallery) {
     .join('');
 }
 
+function onImageClick(evt) {
+evt.preventDefault();
+  if (!evt.target.classList.contains('gallery__image')) {
+    return
+  }
+  console.log(evt.target);
+}
 
+ 
 
-  
 
