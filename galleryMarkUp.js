@@ -2,9 +2,11 @@ import gallery from './gallery-items.js';
 
 const galleryContainer = document.querySelector('.js-gallery');
 const cardsMarkup = createGalleryMarkUp(gallery);
-galleryContainer.insertAdjacentHTML('beforeend', cardsMarkup);
+const buttonCls = document.querySelector('[data-action="close-lightbox"]');
 
-galleryContainer.addEventListener('click', onImageClick)
+galleryContainer.insertAdjacentHTML('beforeend', cardsMarkup);
+galleryContainer.addEventListener('click', onImageClickOpenModal);
+buttonCls.addEventListener('click', onCloseSvgClickCloseModal);
 
 /*Функция добавления разметки*/
 function createGalleryMarkUp(gallery) {
@@ -26,8 +28,8 @@ function createGalleryMarkUp(gallery) {
 }
 
 /*Функция открытия модального окна с оригинальным изображением*/ 
-function onImageClick(evt) {
-evt.preventDefault();
+function onImageClickOpenModal(evt) {
+  evt.preventDefault();
   if (evt.target.classList.contains('gallery__image')) {
     const lightbox = document.querySelector('.lightbox');
     lightbox.classList.add('is-open');
@@ -35,15 +37,17 @@ evt.preventDefault();
     lightbox.querySelector('.lightbox__image').alt = evt.target.alt;
     
   }
+}
+ /*Функция закрытия модального окна по кнопке "Закрыть"*/  
+function onCloseSvgClickCloseModal(evt) {
 
- /* const currentOpenImg = document.querySelector('.gallery__image.is-open');
-  if (currentOpenImg) {
-    currentOpenImg.classList.remove('is-open');
-  }*/
- /* const lightbox = evt.target;
-  lightbox.classList.add('is-open');
-  lightbox.src = evt.target.dataset.source;
-  console.log(lightbox);*/
+  if (evt.target.classList.contains('lightbox__button')) {
+    const lightbox = document.querySelector('.lightbox');
+    lightbox.classList.remove('is-open');
+  
+    }
+  }
+
 
  
-}
+
